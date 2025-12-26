@@ -50,12 +50,12 @@ public class Doctor {
         this.specialization = specialization;
     }
 
-    public String getExperiance() {
+    public String getExperience() {
         return experience;
     }
 
-    public void setExperiance(String experiance) {
-        this.experience = experiance;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public String getPhonenumber() {

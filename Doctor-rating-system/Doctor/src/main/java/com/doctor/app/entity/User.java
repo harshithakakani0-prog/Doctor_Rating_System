@@ -45,12 +45,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone_number() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phonenumber = phone_number;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     @Override
