@@ -1,4 +1,4 @@
-package com.doctor.app.Doctor.entity;
+package com.doctor.app.entity;
 
 import jakarta.persistence.*;
 
@@ -11,8 +11,6 @@ public class Location {
     private String city;
     private String street;
     private String pincode;
-    @OneToMany(mappedBy = "Location")
-    private List<Doctor> doctors;
 
     public int getLocation_id() {
         return locationId;

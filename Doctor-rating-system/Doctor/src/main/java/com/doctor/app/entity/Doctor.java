@@ -1,4 +1,4 @@
-package com.doctor.app.Doctor.entity;
+package com.doctor.app.entity;
 
 import jakarta.persistence.*;
 @Entity
@@ -11,9 +11,6 @@ public class Doctor {
     private String experiance;
     private String phonenumber;
     private String feestructure;
-    @ManyToOne
-    @JoinColumn(name = "locationId")
-    private Location location;
 
     public int getDoctorId() {
         return doctorId;

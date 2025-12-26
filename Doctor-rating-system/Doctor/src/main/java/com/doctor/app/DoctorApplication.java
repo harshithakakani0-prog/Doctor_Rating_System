@@ -1,4 +1,4 @@
-package com.doctor.app.Doctor;
+package com.doctor.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

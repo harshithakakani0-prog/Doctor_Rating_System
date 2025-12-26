@@ -1,6 +1,6 @@
-package com.doctor.app.Doctor.controller;
+package com.doctor.app.controller;
 
-import com.doctor.app.Doctor.entity.Doctor;
+import com.doctor.app.entity.Doctor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
