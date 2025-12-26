@@ -4,17 +4,18 @@ import com.doctor.app.entity.Doctor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/doctor")
 public class DoctorApplicationController {
-    @GetMapping("greetDoctor")
+    @GetMapping("/greet")
     public String greetDoctor(){
         return "Hello Doctor";
     }
-    @PostMapping("createDoctor")
+    @PostMapping("/create")
     public String createdoctor(@RequestBody Doctor doctor){
-        System.out.println("Doctor data "+doctor.toString());
+        System.out.println("Doctor data "+doctor);
         return "doctor created";
     }
-    @GetMapping("readDoctor")
+    @GetMapping("/read")
     public String readdoctor(@RequestParam("id") int Doctor_Id){
         System.out.println("Doctor+Id "+Doctor_Id);
         return "Doctor reading completed";

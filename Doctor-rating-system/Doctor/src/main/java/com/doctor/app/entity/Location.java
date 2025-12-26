@@ -1,6 +1,7 @@
 package com.doctor.app.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 @Entity
@@ -8,31 +9,36 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int locationId;
+    @ManyToOne
+    @JoinColumn(name = "doctorId",nullable = false)
+    private Doctor doctor;
+    @NotBlank
     private String city;
-    private String street;
+    @NotBlank
     private String pincode;
 
-    public int getLocation_id() {
+    public int getLocationId() {
         return locationId;
     }
 
-    public void setLocation_id(int locationId) {
+    public void setLocationId(int locationId) {
         this.locationId = locationId;
     }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public String getPincode() {
@@ -46,9 +52,9 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "location_id=" + locationId +
+                "locationId=" + locationId +
+                ", doctor=" + doctor +
                 ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
                 ", pincode='" + pincode + '\'' +
                 '}';
     }

@@ -1,24 +1,32 @@
 package com.doctor.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_ID;
+    private int userID;
+    @NotBlank
     private String name;
+    @NotBlank
+    @Email
+    @Column(unique = true)
     private String email;
-    private String phone_number;
+    @NotBlank
+    @Size(min=10, max=15)
+    private String phonenumber;
 
-    public int getUser_ID() {
-        return user_ID;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUser_ID(int user_ID) {
-        this.user_ID = user_ID;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getName() {
@@ -38,20 +46,20 @@ public class User {
     }
 
     public String getPhone_number() {
-        return phone_number;
+        return phonenumber;
     }
 
     public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+        this.phonenumber = phone_number;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "user_ID=" + user_ID +
+                "user_ID=" + userID +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                ", phone_number='" + phonenumber + '\'' +
                 '}';
     }
 }

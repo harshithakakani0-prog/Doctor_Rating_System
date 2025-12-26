@@ -1,19 +1,29 @@
 package com.doctor.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rating_id;
-    private int Doctor_Id;
-    private int user_ID;
+    @ManyToOne
+    @JoinColumn(name = "doctorId",nullable = false)
+    private Doctor doctor;
+    @ManyToOne
+    @JoinColumn(name = "userID",nullable = false)
+    private User user;
+    @Min(1)
+    @Max(5)
     private int review;
     private String comments;
-    private String Vvisited_date;
+    private String visited_date;
 
     public int getRating_id() {
         return rating_id;
@@ -23,20 +33,20 @@ public class Rating {
         this.rating_id = rating_id;
     }
 
-    public int getDoctor_Id() {
-        return Doctor_Id;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctor_Id(int doctor_Id) {
-        Doctor_Id = doctor_Id;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
-    public int getUser_ID() {
-        return user_ID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_ID(int user_ID) {
-        this.user_ID = user_ID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getReview() {
@@ -56,22 +66,22 @@ public class Rating {
     }
 
     public String getVvisited_date() {
-        return Vvisited_date;
+        return visited_date;
     }
 
     public void setVvisited_date(String vvisited_date) {
-        Vvisited_date = vvisited_date;
+        visited_date = vvisited_date;
     }
 
     @Override
     public String toString() {
         return "Rating{" +
                 "rating_id=" + rating_id +
-                ", Doctor_Id=" + Doctor_Id +
-                ", user_ID=" + user_ID +
+                ", doctor=" + doctor +
+                ", user=" + user +
                 ", review=" + review +
                 ", comments='" + comments + '\'' +
-                ", Vvisited_date='" + Vvisited_date + '\'' +
+                ", Vvisited_date='" + visited_date + '\'' +
                 '}';
     }
 }

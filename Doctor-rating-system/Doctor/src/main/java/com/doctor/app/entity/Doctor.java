@@ -1,23 +1,37 @@
 package com.doctor.app.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorId;
+    @NotBlank
     private String doctorName;
+    @NotBlank
     private String specialization;
-    private String experiance;
+    @NotBlank
+    private String experience;
+    @Size(min = 10,max = 15)
     private String phonenumber;
-    private String feestructure;
+    private double feestructure;
+    @OneToMany(mappedBy = "doctor" , cascade = CascadeType.ALL,orphanRemoval = true)
+    List<Location> locations=new ArrayList<>();
+    @OneToMany(mappedBy = "doctor" , cascade = CascadeType.ALL,orphanRemoval = true)
+    List<Rating> ratings=new ArrayList<>();
 
     public int getDoctorId() {
         return doctorId;
     }
 
     public void setDoctorId(int doctorId) {
-        doctorId = doctorId;
+        this.doctorId = doctorId;
     }
 
     public String getDoctorName() {
@@ -25,7 +39,7 @@ public class Doctor {
     }
 
     public void setDoctorName(String doctorName) {
-        doctorName = doctorName;
+        this.doctorName = doctorName;
     }
 
     public String getSpecialization() {
@@ -37,11 +51,11 @@ public class Doctor {
     }
 
     public String getExperiance() {
-        return experiance;
+        return experience;
     }
 
     public void setExperiance(String experiance) {
-        this.experiance = experiance;
+        this.experience = experiance;
     }
 
     public String getPhonenumber() {
@@ -52,11 +66,11 @@ public class Doctor {
         this.phonenumber = phonenumber;
     }
 
-    public String getFeestructure() {
+    public double getFeestructure() {
         return feestructure;
     }
 
-    public void setFeestructure(String feestructure) {
+    public void setFeestructure(double feestructure) {
         this.feestructure = feestructure;
     }
 
@@ -66,7 +80,7 @@ public class Doctor {
                 "Doctor_Id=" + doctorId +
                 ", Doctor_name='" + doctorName + '\'' +
                 ", specialization='" + specialization + '\'' +
-                ", experiance='" + experiance + '\'' +
+                ", experiance='" + experience + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
                 ", feestructure='" + feestructure + '\'' +
                 '}';
