@@ -2,29 +2,23 @@ package com.doctor.app.entity;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rating_id;
     @ManyToOne
-    @JoinColumn(name = "doctorId",nullable = false)
+    @JoinColumn(name = "doctor_id",nullable = false)
     private Doctor doctor;
     @ManyToOne
-    @JoinColumn(name = "userID",nullable = false)
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
-    @Min(1)
-    @Max(5)
-    private int review;
+    @DecimalMin("1.0")
+    @DecimalMax("5.0")
+    private double review;
     private String comments;
-    private String visited_date;
-
     public int getRating_id() {
         return rating_id;
     }
@@ -49,11 +43,11 @@ public class Rating {
         this.user = user;
     }
 
-    public int getReview() {
+    public double getReview() {
         return review;
     }
 
-    public void setReview(int review) {
+    public void setReview(double review) {
         this.review = review;
     }
 
@@ -65,13 +59,6 @@ public class Rating {
         this.comments = comments;
     }
 
-    public String getVvisited_date() {
-        return visited_date;
-    }
-
-    public void setVvisited_date(String vvisited_date) {
-        visited_date = vvisited_date;
-    }
 
     @Override
     public String toString() {
@@ -80,8 +67,7 @@ public class Rating {
                 ", doctor=" + doctor +
                 ", user=" + user +
                 ", review=" + review +
-                ", comments='" + comments + '\'' +
-                ", Vvisited_date='" + visited_date + '\'' +
+                ", comments='" + comments +
                 '}';
     }
 }
