@@ -14,9 +14,8 @@ public class LocationController {
     @Autowired
     private LocationRepository locationRepository;
     @PostMapping("/create")
-    public String createlocation(@RequestBody Location location){
+    public Location createlocation(@RequestBody Location location){
         System.out.println("Location data="+location);
-        locationRepository.save(location);
-        return "location created";
+        return locationRepository.save(location);
     }
 }

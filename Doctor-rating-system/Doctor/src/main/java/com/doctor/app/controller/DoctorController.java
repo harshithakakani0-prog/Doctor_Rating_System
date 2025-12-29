@@ -18,10 +18,9 @@ public class DoctorController {
     }
 
     @PostMapping("/create")
-    public String createdoctor(@RequestBody Doctor doctor){
+    public Doctor createdoctor(@RequestBody Doctor doctor){
         System.out.println("Doctor data = " + doctor);
-        doctorRepository.save(doctor);
-        return "doctor created";
+        return doctorRepository.save(doctor);
     }
 
     @GetMapping("/read")

@@ -16,9 +16,8 @@ public class UserController {
         return "Hello user";
     }
     @PostMapping("/create")
-    public String createuser(@Valid @RequestBody User user){
+    public User createuser(@Valid @RequestBody User user){
         System.out.println("user data "+user);
-        userRepository.save(user);
-        return "user created";
+        return userRepository.save(user);
     }
 }
