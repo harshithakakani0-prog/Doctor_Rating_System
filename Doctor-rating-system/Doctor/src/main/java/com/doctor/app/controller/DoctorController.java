@@ -1,32 +1,48 @@
 package com.doctor.app.controller;
 
 import com.doctor.app.entity.Doctor;
-import com.doctor.app.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping("/doctors")
 public class DoctorController {
 
     @Autowired
-    private DoctorRepository doctorRepository;
+    private DoctorService doctorService;
 
-    @GetMapping("/greet")
-    public String greetDoctor(){
-        return "Hello Doctor";
+    @PostMapping("/add")
+    public Doctor addDoctor(@RequestBody Doctor doctor) {
+        return doctorService.createDoctor(doctor);
     }
 
-    @PostMapping("/create")
-    public Doctor createdoctor(@RequestBody Doctor doctor){
-        System.out.println("Doctor data = " + doctor);
-        return doctorRepository.save(doctor);
+    @GetMapping
+    public List<Doctor> getAllDoctors() {
+        return doctorService.getAllDoctors();
     }
 
-    @GetMapping("/read")
-    public String readdoctor(@RequestParam("id") int doctorId){
-        System.out.println("Doctor Id = " + doctorId);
-        return "Doctor reading completed";
+    @GetMapping("/search/name")
+    public List<Doctor> searchByName(@RequestParam String name) {
+        return doctorService.searchByName(name);
+    }
+
+    @GetMapping("/search/specialization")
+    public List<Doctor> searchBySpecialization(@RequestParam String specialization) {
+        return doctorService.searchBySpecialization(specialization);
+    }
+
+    @GetMapping("/search/city")
+    public List<Doctor> searchByCity(@RequestParam String city) {
+        return doctorService.searchByCity(city);
+    }
+
+    @GetMapping("/search/specialization-city")
+    public List<Doctor> searchBySpecializationAndCity(@RequestParam String specialization,
+                                                      @RequestParam String city) {
+        return doctorService.searchBySpecializationAndCity(specialization, city);
     }
 }
+
 
