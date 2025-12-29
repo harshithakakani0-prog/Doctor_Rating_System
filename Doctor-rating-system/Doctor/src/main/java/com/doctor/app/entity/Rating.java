@@ -1,30 +1,50 @@
 package com.doctor.app.entity;
 
-import jakarta.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
+
 @Entity
+@Table(name = "rating")
 public class Rating {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rating_id;
-    @ManyToOne
-    @JoinColumn(name = "doctor_id",nullable = false)
+    @Column(name = "rating_id")
+    private int ratingId;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    @NotNull(message = "Doctor is required")
     private Doctor doctor;
-    @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull(message = "User is required")
     private User user;
-    @DecimalMin("1.0")
-    @DecimalMax("5.0")
+
+    @DecimalMin(value = "1.0", message = "Rating must be at least 1")
+    @DecimalMax(value = "5.0", message = "Rating must be at most 5")
     private double review;
+
     private String comments;
-    public int getRating_id() {
-        return rating_id;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "visited_date")
+    private LocalDate visitedDate;
+
+    // ---------- GETTERS & SETTERS ----------
+
+    public int getRatingId() {
+        return ratingId;
     }
 
-    public void setRating_id(int rating_id) {
-        this.rating_id = rating_id;
+    public void setRatingId(int ratingId) {
+        this.ratingId = ratingId;
     }
 
     public Doctor getDoctor() {
@@ -59,15 +79,23 @@ public class Rating {
         this.comments = comments;
     }
 
+    public LocalDate getVisitedDate() {
+        return visitedDate;
+    }
+
+    public void setVisitedDate(LocalDate visitedDate) {
+        this.visitedDate = visitedDate;
+    }
 
     @Override
     public String toString() {
         return "Rating{" +
-                "rating_id=" + rating_id +
+                "ratingId=" + ratingId +
                 ", doctor=" + doctor +
                 ", user=" + user +
                 ", review=" + review +
-                ", comments='" + comments +
+                ", comments='" + comments + '\'' +
+                ", visitedDate=" + visitedDate +
                 '}';
     }
 }

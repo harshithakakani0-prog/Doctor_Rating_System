@@ -1,5 +1,6 @@
 package com.doctor.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -8,23 +9,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "doctor")
 public class Doctor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "doctor_id")
     private int doctorId;
+
     @NotBlank
+    @Column(name = "doctor_name")
     private String doctorName;
+
     @NotBlank
     private String specialization;
+
     @NotBlank
     private String experience;
-    @Size(min = 10,max = 15)
+
+    @Size(min = 10, max = 15)
     private String phonenumber;
+
     private double feestructure;
-    @OneToMany(mappedBy = "doctor" , cascade = CascadeType.ALL,orphanRemoval = true)
-    List<Location> locations=new ArrayList<>();
-    @OneToMany(mappedBy = "doctor" , cascade = CascadeType.ALL,orphanRemoval = true)
-    List<Rating> ratings=new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Rating> ratings = new ArrayList<>();
+
+    // ---------- GETTERS & SETTERS ----------
 
     public int getDoctorId() {
         return doctorId;
@@ -77,12 +89,13 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor{" +
-                "Doctor_Id=" + doctorId +
-                ", Doctor_name='" + doctorName + '\'' +
+                "doctorId=" + doctorId +
+                ", doctorName='" + doctorName + '\'' +
                 ", specialization='" + specialization + '\'' +
-                ", experiance='" + experience + '\'' +
+                ", experience='" + experience + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
-                ", feestructure='" + feestructure + '\'' +
+                ", feestructure=" + feestructure +
+                ", ratings=" + ratings +
                 '}';
     }
 }

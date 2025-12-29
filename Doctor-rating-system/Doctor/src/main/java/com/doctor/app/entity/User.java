@@ -1,32 +1,51 @@
 package com.doctor.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "user")
+@Table(
+        name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email")
+        }
+)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userID;
+    @Column(name = "user_id")
+    private int userId;
+
     @NotBlank
     private String name;
+
     @NotBlank
     @Email
-    @Column(unique = true)
     private String email;
+
     @NotBlank
-    @Size(min=10, max=15)
+    @Size(min = 10, max = 15)
     private String phonenumber;
 
-    public int getUserID() {
-        return userID;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Rating> ratings = new ArrayList<>();
+
+    // ---------- GETTERS & SETTERS ----------
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {   // ✅ CORRECT NAMING
+        this.userId = userId;
     }
 
     public String getName() {
@@ -56,10 +75,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "user_ID=" + userID +
+                "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phone_number='" + phonenumber + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", ratings=" + ratings +
                 '}';
     }
 }
